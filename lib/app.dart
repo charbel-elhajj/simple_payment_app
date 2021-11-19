@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_payment_app/providers/payment_provider.dart';
+import 'package:simple_payment_app/services/api_client_service.dart';
 import 'package:simple_payment_app/styles/theme.dart';
 
 import 'config/routes.dart';
@@ -13,9 +14,12 @@ class App extends StatelessWidget {
   }
 
   MultiProvider _buildAppWithProviders() {
+    final apiClientService = ApiClientService();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PaymentProvider()),
+        ChangeNotifierProvider(create: (context) => PaymentProvider(
+          apiClientService: apiClientService,
+        )),
       ],
       child: _buildApp(),
     );
