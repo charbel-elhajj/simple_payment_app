@@ -1,2 +1,1 @@
-const apiLink =
-    'http://localhost:5000/';
+const apiLink = 'http://localhost:5000/';

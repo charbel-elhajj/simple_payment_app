@@ -1,7 +1,3 @@
 import 'package:flutter/material.dart';
 
-class PaymentProvider extends ChangeNotifier {
-
-
-
-}
+class PaymentProvider extends ChangeNotifier {}

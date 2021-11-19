@@ -15,9 +15,7 @@ class App extends StatelessWidget {
   MultiProvider _buildAppWithProviders() {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => PaymentProvider()
-        ),
+        ChangeNotifierProvider(create: (context) => PaymentProvider()),
       ],
       child: _buildApp(),
     );

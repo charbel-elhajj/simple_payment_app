@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:simple_payment_app/screens/user_actions_screens.dart';
 import 'package:simple_payment_app/widgets/button.dart';
+import 'package:simple_payment_app/widgets/text_input.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const routeName = '/home';
+class UserActionsScreen extends StatefulWidget {
+  static const routeName = '/user-actions';
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _UserActionsScreenState createState() => _UserActionsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _UserActionsScreenState extends State<UserActionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Text("Welcome !"),
+      title: Text("User Actions"),
     );
   }
 
@@ -29,21 +29,23 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           Spacer(),
-          Button(
-            onPressHandler: () {},
-            text: 'Get all transactions',
-          ),
-          Spacer(),
-          Button(
-            onPressHandler: () {
-              Navigator.pushNamed(context, UserActionsScreen.routeName);
-            },
-            text: 'User Actions',
+          TextInput(
+            placeholder: 'User Name',
           ),
           Spacer(),
           Button(
             onPressHandler: () {},
-            text: 'Check Integrity',
+            text: 'Pay',
+          ),
+          Spacer(),
+          Button(
+            onPressHandler: () {},
+            text: 'Get paid',
+          ),
+          Spacer(),
+          Button(
+            onPressHandler: () {},
+            text: 'Get Balance',
           ),
           Spacer(),
         ],
