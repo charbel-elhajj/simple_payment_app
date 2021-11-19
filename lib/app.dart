@@ -17,9 +17,10 @@ class App extends StatelessWidget {
     final apiClientService = ApiClientService();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PaymentProvider(
-          apiClientService: apiClientService,
-        )),
+        ChangeNotifierProvider(
+            create: (context) => PaymentProvider(
+                  apiClientService: apiClientService,
+                )),
       ],
       child: _buildApp(),
     );

@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('fr', 'FR'),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

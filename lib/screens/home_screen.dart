@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_payment_app/screens/all_transactions_screen.dart';
 import 'package:simple_payment_app/screens/user_actions_screens.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 
@@ -30,7 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Spacer(),
           Button(
-            onPressHandler: () {},
+            onPressHandler: () {
+              Navigator.pushNamed(context, AllTransactionsScreen.routeName);
+            },
             text: 'Get all transactions',
           ),
           Spacer(),
