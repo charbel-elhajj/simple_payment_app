@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/models/transaction.dart';
-import 'package:intl/intl.dart';
+import 'package:simple_payment_app/screens/hash_display_screen.dart';
 
 //TODO: Add Actions () see hash
 class TransactionListTile extends StatelessWidget {
@@ -42,6 +42,12 @@ class TransactionListTile extends StatelessWidget {
               color: inOut! ? Colors.green : Colors.red,
             ),
         ],
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HashDisplayScreen(hash: transaction.hash),
+        ),
       ),
     );
   }
