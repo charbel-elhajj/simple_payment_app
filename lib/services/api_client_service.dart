@@ -6,9 +6,9 @@ class ApiClientService {
   final _dio = Dio();
 
 
-  Future<List<Transaction>> getTransactions() {
+  Future<List<Transaction>> getTransactions() async {
     final path = '${apiLink}transactions';
-    final response = _dio.get(path) as Map<String, dynamic>;
+    final response = (await _dio.get(path)) as Map<String, dynamic>;
     print(response['result']);
     return Future.delayed(
       Duration(seconds: 3),
