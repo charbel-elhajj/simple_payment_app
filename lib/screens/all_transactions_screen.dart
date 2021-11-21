@@ -34,7 +34,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
             if (snapshot.hasData) {
               final transactions = snapshot.data!;
               return Container(
-                color: Colors.black26,
+                color: Colors.black12,
                 child: ListView.builder(
                     itemCount: transactions.length,
                     itemBuilder: (BuildContext context, int index) {
