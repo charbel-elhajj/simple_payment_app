@@ -15,6 +15,6 @@ const mounthDict = {
   12: 'Dec',
 };
 
-extension MonthParting on DateTime{
+extension MonthParting on DateTime {
   String get formattedMonth => mounthDict[this.month]!;
 }
