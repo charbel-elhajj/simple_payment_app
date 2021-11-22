@@ -12,7 +12,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
     personFrom: json['person_from'] as String,
     personTo: json['person_to'] as String,
     amount: (json['amount'] as num).toDouble(),
-    time: DateTime.parse(json['time'] as String),
+    time: Transaction._stringTodateTime(json['time'] as String),
     hash: json['hash'] as String,
   );
 }
@@ -22,6 +22,6 @@ Map<String, dynamic> _$TransactionToJson(Transaction instance) => <String, dynam
       'person_from': instance.personFrom,
       'person_to': instance.personTo,
       'amount': instance.amount,
-      'time': instance.time.toIso8601String(),
+      'time': Transaction._dateTimeToString(instance.time),
       'hash': instance.hash,
     };

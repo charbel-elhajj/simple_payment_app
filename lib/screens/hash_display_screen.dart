@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_payment_app/models/transaction.dart';
-import 'package:simple_payment_app/providers/payment_provider.dart';
-import 'package:simple_payment_app/widgets/transaction_list_tile.dart';
 
 class HashDisplayScreen extends StatefulWidget {
   static const routeName = '/hash-display';
-  String hash;
+  final String hash;
 
   HashDisplayScreen({required this.hash});
 
@@ -30,9 +26,12 @@ class _HashDisplayScreenState extends State<HashDisplayScreen> {
   }
 
   Widget _buildBody() {
-    return Container(
-      child: Center(
-        child: Text(widget.hash),
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Container(
+        child: Center(
+          child: Text(widget.hash),
+        ),
       ),
     );
   }

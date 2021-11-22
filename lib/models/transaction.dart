@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'transaction.g.dart';
@@ -10,6 +12,7 @@ class Transaction {
   @JsonKey(name: 'person_to')
   String personTo;
   double amount;
+  @JsonKey(toJson: _dateTimeToString, fromJson: _stringTodateTime)
   DateTime time;
   String hash;
 
@@ -24,4 +27,7 @@ class Transaction {
 
   factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
+
+  static String _dateTimeToString(DateTime date) => HttpDate.format(date);
+  static DateTime _stringTodateTime(String stringDate) => HttpDate.parse(stringDate).toLocal();
 }

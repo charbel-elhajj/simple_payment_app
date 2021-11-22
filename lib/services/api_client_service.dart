@@ -5,24 +5,11 @@ import 'package:simple_payment_app/models/transaction.dart';
 class ApiClientService {
   final _dio = Dio();
 
-
   Future<List<Transaction>> getTransactions() async {
     final path = '${apiLink}transactions';
-    final response = (await _dio.get(path)) as Map<String, dynamic>;
-    print(response['result']);
-    return Future.delayed(
-      Duration(seconds: 3),
-      () => List.generate(
-        10,
-        (index) => Transaction(
-          personFrom: 'test1',
-          personTo: 'test2',
-          amount: 10,
-          id: index,
-          hash: 'xxxxxx',
-          time: DateTime.now(),
-        ),
-      ),
-    );
+    final response = (await _dio.get(path));
+    final data = response.data as Map<String, dynamic>;
+    final transactions = (data['result'] as List).map((t) => Transaction.fromJson(t)).toList();
+    return transactions;
   }
 }
