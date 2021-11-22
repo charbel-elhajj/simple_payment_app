@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:simple_payment_app/styles/spacings.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/check_circle_icon.dart';
+import 'package:simple_payment_app/widgets/warning_icon.dart';
 
-class GenericConfirmationScreen extends StatefulWidget {
+class GenericErrorScreen extends StatefulWidget {
   static const routeName = '/generic-confirmation-screen';
   final String mainText;
   final String callToActionText;
   final VoidCallback callback;
   final TextAlign? textAlign;
 
-  GenericConfirmationScreen({
+  GenericErrorScreen({
     required this.mainText,
     required this.callToActionText,
     required this.callback,
@@ -18,10 +19,10 @@ class GenericConfirmationScreen extends StatefulWidget {
   });
 
   @override
-  _GenericConfirmationScreenState createState() => _GenericConfirmationScreenState();
+  _GenericErrorScreenState createState() => _GenericErrorScreenState();
 }
 
-class _GenericConfirmationScreenState extends State<GenericConfirmationScreen> {
+class _GenericErrorScreenState extends State<GenericErrorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +41,8 @@ class _GenericConfirmationScreenState extends State<GenericConfirmationScreen> {
             child: Button(
               text: widget.callToActionText,
               onPressHandler: widget.callback,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
             ),
           )
         ],
@@ -55,12 +58,12 @@ class _GenericConfirmationScreenState extends State<GenericConfirmationScreen> {
           height: MediaQuery.of(context).size.height * 0.3,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).errorColor,
           ),
         ),
         Positioned(
           bottom: getSpacing(3),
-          child: CheckCircleIcon(
+          child: WarningIcon(
             color: Colors.white,
             size: getSpacing(10),
           ),

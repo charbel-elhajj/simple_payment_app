@@ -8,6 +8,7 @@ class Button extends StatefulWidget {
   final bool isDisabled;
   final bool hasBorders;
   final Color? backgroundColor;
+  final Color? textColor;
 
   Button({
     required this.text,
@@ -15,6 +16,7 @@ class Button extends StatefulWidget {
     this.isDisabled = false,
     this.hasBorders = false,
     this.backgroundColor,
+    this.textColor,
   });
 
   @override
@@ -57,7 +59,7 @@ class _ButtonState extends State<Button> {
         child: Text(
           widget.text,
           style: Theme.of(context).textTheme.headline3?.copyWith(
-                color: widget.isDisabled ? greyColor : Colors.black,
+                color: widget.isDisabled ? greyColor : widget.textColor??Colors.black,
               ),
         ),
       ),
