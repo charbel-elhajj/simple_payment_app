@@ -9,6 +9,11 @@ class UserActionsScreen extends StatefulWidget {
 }
 
 class _UserActionsScreenState extends State<UserActionsScreen> {
+  final _controller = TextEditingController();
+  var isEnabled = false;
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,33 +28,66 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
     );
   }
 
+  void _unfocusKeyboard(){
+    FocusScope.of(context).unfocus();
+  }
+
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        children: [
-          Spacer(),
-          TextInput(
-            placeholder: 'User Name',
-          ),
-          Spacer(),
-          Button(
-            onPressHandler: () {},
-            text: 'Pay',
-          ),
-          Spacer(),
-          Button(
-            onPressHandler: () {},
-            text: 'Get paid',
-          ),
-          Spacer(),
-          Button(
-            onPressHandler: () {},
-            text: 'Get Balance',
-          ),
-          Spacer(),
-        ],
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            Spacer(),
+            TextInput(
+              placeholder: 'User Name',
+              controller: _controller,
+              onEditingComplete: _unfocusKeyboard,
+              validator:(value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a user name';
+                }
+                return null;
+              },
+            ),
+            Spacer(),
+            Button(
+              onPressHandler: () {
+                if (_formKey.currentState!.validate()) {
+                }
+              },
+              text: 'Pay',
+            ),
+            Spacer(),
+            Button(
+              onPressHandler: () {
+                if (_formKey.currentState!.validate()) {
+                }
+              },
+              text: 'Get paid',
+            ),
+            Spacer(),
+            Button(
+              onPressHandler: () {
+                if (_formKey.currentState!.validate()) {
+                }
+              },
+              text: 'Get Balance',
+            ),
+            Spacer(),
+            Button(
+              onPressHandler: () {
+                if (_formKey.currentState!.validate()) {
+                }
+              },
+              text: 'Get All transactions',
+            ),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }
+
 }
