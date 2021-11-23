@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_payment_app/models/transaction.dart';
@@ -6,6 +7,9 @@ import 'package:simple_payment_app/widgets/transaction_list_tile.dart';
 
 class AllTransactionsScreen extends StatefulWidget {
   static const routeName = '/all-transactions';
+  final String? userName;
+
+  const AllTransactionsScreen({Key? key, this.userName}) : super(key: key);
   @override
   _AllTransactionsScreenState createState() => _AllTransactionsScreenState();
 }
@@ -20,8 +24,9 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
   }
 
   AppBar _buildAppBar() {
+    final title = isUserTransactions ? '${widget.userName} \'s transactions' : 'All transactions';
     return AppBar(
-      title: Text("All transactions"),
+      title: Text(title),
     );
   }
 
@@ -29,7 +34,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
     return Consumer<PaymentProvider>(
       builder: (context, provider, _) {
         return FutureBuilder<List<Transaction>>(
-          future: provider.getTransactions(),
+          future: isUserTransactions ? provider.getUserTransactions(widget.userName!) : provider.getTransactions(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final transactions = snapshot.data!;
@@ -41,7 +46,12 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                       return Container(
                           child: Column(
                         children: [
-                          TransactionListTile(transaction: transactions[index]),
+                          TransactionListTile(
+                            transaction: transactions[index],
+                            inOut: isUserTransactions
+                                ? widget.userName!.toLowerCase() == transactions[index].personTo.toLowerCase()
+                                : null,
+                          ),
                           SizedBox(
                             height: 8,
                             child: Container(
@@ -70,4 +80,6 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
       },
     );
   }
+
+  bool get isUserTransactions => widget.userName != null;
 }
