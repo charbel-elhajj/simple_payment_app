@@ -21,6 +21,14 @@ class ApiClientService {
     return transactions;
   }
 
+  Future<double> getUserBalance(String userName) async{
+    final path = '${apiLink}persons/$userName/balance';
+    final response = (await _dio.get(path));print(response);
+    final data = response.data as Map<String, dynamic>;
+    final balance = (data['result']['balance']) as double;
+    return balance;
+  }
+
   Future<bool> getIntegrity() async {
     final path = '${apiLink}transactions/integrity';
     final response = (await _dio.get(path));
