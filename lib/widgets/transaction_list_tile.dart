@@ -3,7 +3,6 @@ import 'package:simple_payment_app/models/transaction.dart';
 import 'package:simple_payment_app/screens/hash_display_screen.dart';
 import 'package:simple_payment_app/utils/date_utils.dart';
 
-//TODO: Add Actions () see hash
 class TransactionListTile extends StatelessWidget {
   final Transaction transaction;
   final bool? inOut;
@@ -54,7 +53,7 @@ class TransactionListTile extends StatelessWidget {
   }
 
   String _extractMonthAndDay(BuildContext context) {
-    return '${_date.day}\n${mounthDict[_date.formattedMonth]}';
+    return '${_date.day}\n${_date.formattedMonth}';
   }
 
   String _formatTime(int timeInfo) => timeInfo < 10 ? '0$timeInfo' : '$timeInfo';

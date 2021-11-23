@@ -1,6 +1,6 @@
 import 'dart:core';
 
-const mounthDict = {
+const monthDict = {
   1: 'Jan',
   2: 'Feb',
   3: 'Mar',
@@ -16,5 +16,5 @@ const mounthDict = {
 };
 
 extension MonthParting on DateTime {
-  String get formattedMonth => mounthDict[this.month]!;
+  String get formattedMonth => monthDict[this.month]!;
 }

@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:simple_payment_app/screens/generic_confirmation_screen.dart';
+import 'package:simple_payment_app/providers/payment_provider.dart';
 import 'package:simple_payment_app/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
+import 'generic_confirmation_screen.dart';
 import 'generic_error_screen.dart';
 
 class IntegrityRoutingScreen extends StatefulWidget {
@@ -21,31 +21,40 @@ class _IntegrityRoutingScreenState extends State<IntegrityRoutingScreen> {
 
   void _navigate() async {
     // sleep(Duration(seconds: 3));
-    Future.delayed(Duration.zero, () {
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => GenericConfirmationScreen(
-      //       callToActionText: 'Okay',
-      //       callback: () {
-      //         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-      //       },
-      //       mainText: 'Transaction Integrity is validated!',
-      //     ),
-      //   ),
-      // );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => GenericErrorScreen(
-            callToActionText: 'Okay',
-            callback: () {
-              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-            },
-            mainText: 'Transaction Integrity is not validated!',
+    Future.delayed(Duration.zero, () async{
+      final provider = context.read<PaymentProvider>();
+      final isValid = await provider.getIntegrity();
+      if(isValid){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GenericConfirmationScreen(
+              callToActionText: 'Okay',
+              callback: () {
+                Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+              },
+              mainText: 'Transaction Integrity is validated!',
+            ),
           ),
-        ),
-      );
+        );
+      }
+      else{
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GenericErrorScreen(
+              callToActionText: 'Okay',
+              callback: () {
+                Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+              },
+              mainText: 'Transaction Integrity is not validated!',
+            ),
+          ),
+        );
+      }
+
+
+
     });
   }
 
