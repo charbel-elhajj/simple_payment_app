@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_payment_app/screens/all_transactions_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
 
@@ -12,7 +14,6 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
   final _controller = TextEditingController();
   var isEnabled = false;
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
     );
   }
 
-  void _unfocusKeyboard(){
+  void _unfocusKeyboard() {
     FocusScope.of(context).unfocus();
   }
 
@@ -44,7 +45,7 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
               placeholder: 'User Name',
               controller: _controller,
               onEditingComplete: _unfocusKeyboard,
-              validator:(value) {
+              validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a user name';
                 }
@@ -54,24 +55,21 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
             Spacer(),
             Button(
               onPressHandler: () {
-                if (_formKey.currentState!.validate()) {
-                }
+                if (_formKey.currentState!.validate()) {}
               },
               text: 'Pay',
             ),
             Spacer(),
             Button(
               onPressHandler: () {
-                if (_formKey.currentState!.validate()) {
-                }
+                if (_formKey.currentState!.validate()) {}
               },
               text: 'Get paid',
             ),
             Spacer(),
             Button(
               onPressHandler: () {
-                if (_formKey.currentState!.validate()) {
-                }
+                if (_formKey.currentState!.validate()) {}
               },
               text: 'Get Balance',
             ),
@@ -79,6 +77,14 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
             Button(
               onPressHandler: () {
                 if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllTransactionsScreen(
+                        userName: _controller.text,
+                      ),
+                    ),
+                  );
                 }
               },
               text: 'Get All transactions',
@@ -89,5 +95,4 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
       ),
     );
   }
-
 }
