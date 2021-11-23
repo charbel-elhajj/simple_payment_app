@@ -18,4 +18,13 @@ class PaymentProvider extends ChangeNotifier {
   Future<bool> getIntegrity() async {
     return await apiClientService.getIntegrity();
   }
+
+  Future<double> getUserBalance(String userName) async {
+    try {
+      final balance = await apiClientService.getUserBalance(userName);
+      return balance;
+    } on Exception catch (e) {
+      return 0;
+    }
+  }
 }
