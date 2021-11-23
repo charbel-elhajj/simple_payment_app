@@ -18,7 +18,6 @@ class ApiClientService {
     final response = (await _dio.get(path));print(response);
     final data = response.data as Map<String, dynamic>;
     final transactions = (data['result'] as List).map((t) => Transaction.fromJson(t)).toList();
-
     return transactions;
   }
 

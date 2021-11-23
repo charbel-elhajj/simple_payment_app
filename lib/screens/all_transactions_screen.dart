@@ -40,27 +40,33 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               final transactions = snapshot.data!;
               return Container(
                 color: Colors.black12,
-                child: ListView.builder(
-                    itemCount: transactions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          child: Column(
-                        children: [
-                          TransactionListTile(
-                            transaction: transactions[index],
-                            inOut: isUserTransactions
-                                ? widget.userName!.toLowerCase() == transactions[index].personTo.toLowerCase()
-                                : null,
-                          ),
-                          SizedBox(
-                            height: 8,
-                            child: Container(
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ));
-                    }),
+                child: transactions.length > 0
+                    ? ListView.builder(
+                        itemCount: transactions.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                              child: Column(
+                            children: [
+                              TransactionListTile(
+                                transaction: transactions[index],
+                                inOut: isUserTransactions
+                                    ? widget.userName!.toLowerCase() == transactions[index].personTo.toLowerCase()
+                                    : null,
+                              ),
+                              SizedBox(
+                                height: 8,
+                                child: Container(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ));
+                        })
+                    : Container(
+                        child: Center(
+                          child: Text('No transactions yet'),
+                        ),
+                      ),
               );
             } else if (snapshot.hasError) {
               return Container(
