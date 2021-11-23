@@ -12,4 +12,12 @@ class ApiClientService {
     final transactions = (data['result'] as List).map((t) => Transaction.fromJson(t)).toList();
     return transactions;
   }
+  
+  Future<bool> getIntegrity() async {
+    final path = '${apiLink}transactions/integrity';
+    final response = (await _dio.get(path));
+    final data = response.data as Map<String, dynamic>;
+    final isValid = (data['result']['integrity'] as bool);
+    return isValid;
+  }
 }

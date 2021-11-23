@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/screens/all_transactions_screen.dart';
+import 'package:simple_payment_app/screens/integrity_routing_screen.dart';
 import 'package:simple_payment_app/screens/user_actions_screens.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 
@@ -45,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Spacer(),
           Button(
-            onPressHandler: () {},
+            onPressHandler: () {
+              Navigator.pushReplacementNamed(context, IntegrityRoutingScreen.routeName);
+            },
             text: 'Check Integrity',
           ),
           Spacer(),

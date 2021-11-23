@@ -10,4 +10,8 @@ class PaymentProvider extends ChangeNotifier {
   Future<List<Transaction>> getTransactions() async {
     return apiClientService.getTransactions();
   }
+
+  Future<bool> getIntegrity() async {
+    return await apiClientService.getIntegrity();
+  }
 }
