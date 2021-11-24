@@ -59,7 +59,7 @@ class _ButtonState extends State<Button> {
         child: Text(
           widget.text,
           style: Theme.of(context).textTheme.headline3?.copyWith(
-                color: widget.isDisabled ? greyColor : widget.textColor??Colors.black,
+                color: widget.isDisabled ? greyColor : widget.textColor ?? Colors.black,
               ),
         ),
       ),

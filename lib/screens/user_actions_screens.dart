@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/screens/all_transactions_screen.dart';
 import 'package:simple_payment_app/screens/balance_screen.dart';
+import 'package:simple_payment_app/screens/payment_input_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
 
@@ -63,7 +64,16 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
             Spacer(),
             Button(
               onPressHandler: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentInputScreen(
+                        userName: _controller.text,
+                      ),
+                    ),
+                  );
+                }
               },
               text: 'Get paid',
             ),

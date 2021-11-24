@@ -33,6 +33,7 @@ dependencies:
   json_annotation: ^4.0.1
   intl: ^0.17.0
   dio: ^4.0.3
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

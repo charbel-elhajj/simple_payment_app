@@ -15,15 +15,17 @@ class ApiClientService {
 
   Future<List<Transaction>> getUserTransactions(String userName) async {
     final path = '${apiLink}persons/$userName/transactions';
-    final response = (await _dio.get(path));print(response);
+    final response = (await _dio.get(path));
+    print(response);
     final data = response.data as Map<String, dynamic>;
     final transactions = (data['result'] as List).map((t) => Transaction.fromJson(t)).toList();
     return transactions;
   }
 
-  Future<double> getUserBalance(String userName) async{
+  Future<double> getUserBalance(String userName) async {
     final path = '${apiLink}persons/$userName/balance';
-    final response = (await _dio.get(path));print(response);
+    final response = (await _dio.get(path));
+    print(response);
     final data = response.data as Map<String, dynamic>;
     final balance = (data['result']['balance']) as double;
     return balance;
