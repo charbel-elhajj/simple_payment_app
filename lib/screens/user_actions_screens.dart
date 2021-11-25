@@ -71,28 +71,15 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
                     ),
                   );
                   if (result != null) {
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print(json.decode(result)['person_to']);
-                    print(json.decode(result)['amount']);
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    final personTo = json.decode(result)['person_to'] as String;
+                    final amount = json.decode(result)['amount'];
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => PaymentLoaderScreen(
-                          amount: 0,
-                          personFrom: '',
-                          personTo: '',
+                          amount: amount,
+                          personFrom: _controller.text,
+                          personTo: personTo,
                         ),
                       ),
                     );

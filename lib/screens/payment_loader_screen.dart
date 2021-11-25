@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:simple_payment_app/providers/payment_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'generic_confirmation_screen.dart';
+import 'generic_error_screen.dart';
 
 class PaymentLoaderScreen extends StatefulWidget {
   final String personFrom;
@@ -20,8 +25,42 @@ class PaymentLoaderScreen extends StatefulWidget {
 class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _navigate();
+  }
+
+  void _navigate() async {
+    Future.delayed(Duration(seconds: 1), () async {
+      final provider = context.read<PaymentProvider>();
+      final isValid = await provider.getIntegrity();
+      if (isValid) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GenericConfirmationScreen(
+              callToActionText: 'Okay',
+              callback: () {
+                Navigator.pop(context);
+              },
+              mainText: '${widget.amount} has been sent to ${widget.personTo}',
+            ),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GenericErrorScreen(
+              callToActionText: 'Okay',
+              callback: () {
+                Navigator.pop(context);
+              },
+              mainText: 'An error occured while proccessing payment',
+            ),
+          ),
+        );
+      }
+    });
   }
 
   @override
@@ -29,7 +68,16 @@ class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
     return Scaffold(
       body: Container(
         child: Center(
-          child: CircularProgressIndicator.adaptive(),
+          child: Container(
+            child: Column(
+              children: [
+                Spacer(),
+                CircularProgressIndicator.adaptive(),
+                Text('Processing payment...'),
+                Spacer(),
+              ],
+            ),
+          ),
         ),
       ),
     );
