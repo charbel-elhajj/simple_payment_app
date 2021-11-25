@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/screens/all_transactions_screen.dart';
 import 'package:simple_payment_app/screens/balance_screen.dart';
 import 'package:simple_payment_app/screens/payment_input_screen.dart';
+import 'package:simple_payment_app/screens/qr_code_scan_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
+
+import 'payment_loader_screen.dart';
 
 class UserActionsScreen extends StatefulWidget {
   static const routeName = '/user-actions';
@@ -56,8 +61,44 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
             ),
             Spacer(),
             Button(
-              onPressHandler: () {
-                if (_formKey.currentState!.validate()) {}
+              onPressHandler: () async {
+                if (_formKey.currentState!.validate()) {
+                  //QRCodeScanScreen
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QRCodeScanScreen(),
+                    ),
+                  );
+                  if (result != null) {
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print(json.decode(result)['person_to']);
+                    print(json.decode(result)['amount']);
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentLoaderScreen(
+                          amount: 0,
+                          personFrom: '',
+                          personTo: '',
+                        ),
+                      ),
+                    );
+                    print(result);
+                  }
+                }
               },
               text: 'Pay',
             ),
