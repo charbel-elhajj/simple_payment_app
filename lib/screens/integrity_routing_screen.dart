@@ -42,6 +42,7 @@ class _IntegrityRoutingScreenState extends State<IntegrityRoutingScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => GenericErrorScreen(
+              textAlign: TextAlign.center,
               callToActionText: 'Okay',
               callback: () {
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName);

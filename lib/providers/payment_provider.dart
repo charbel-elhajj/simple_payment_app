@@ -71,4 +71,18 @@ class PaymentProvider extends ChangeNotifier {
       throw e;
     }
   }
+
+  Future<Transaction?> createTransaction(
+    String personFrom,
+    String personTo,
+    double amount,
+  ) async {
+    try {
+      final transaction = await apiClientService.createTransaction(personFrom, personTo, amount);
+      return transaction;
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

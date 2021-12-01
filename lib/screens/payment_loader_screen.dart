@@ -32,8 +32,26 @@ class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
   void _navigate() async {
     Future.delayed(Duration(seconds: 1), () async {
       final provider = context.read<PaymentProvider>();
-      final isValid = await provider.getIntegrity();
-      if (isValid) {
+      final transaction = await provider.createTransaction(
+        widget.personFrom,
+        widget.personTo,
+        widget.amount,
+      );
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print(transaction?.time);
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      if (transaction != null) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -51,6 +69,7 @@ class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => GenericErrorScreen(
+              textAlign: TextAlign.center,
               callToActionText: 'Okay',
               callback: () {
                 Navigator.pop(context);

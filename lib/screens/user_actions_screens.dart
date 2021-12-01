@@ -83,7 +83,6 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
                         ),
                       ),
                     );
-                    print(result);
                   }
                 }
               },
