@@ -23,25 +23,25 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration.zero, () async {
-    //   setState(() {
-    //     provider = context.read<PaymentProvider>();
-    //   });
+    Future.delayed(Duration.zero, () async {
+      setState(() {
+        provider = context.read<PaymentProvider>();
+      });
 
-    //   try {
-    //     final isConfirmed = await provider!.confirmPayment(
-    //       userName: widget.userName,
-    //       amount: widget.amount,
-    //       timeoutDuration: Duration(minutes: 10),
-    //       intervalDuration: Duration(milliseconds: 500),
-    //     );
-    //     if (isConfirmed != null) {
-    //       isConfirmed ? _redirectToConfirmationScreen() : _redirectToErrorScreen('');
-    //     }
-    //   } on Exception {
-    //     Navigator.pop(context);
-    //   }
-    // });
+      try {
+        final isConfirmed = await provider!.confirmPayment(
+          userName: widget.userName,
+          amount: widget.amount,
+          timeoutDuration: Duration(minutes: 10),
+          intervalDuration: Duration(seconds: 5),
+        );
+        if (isConfirmed != null) {
+          isConfirmed ? _redirectToConfirmationScreen() : _redirectToErrorScreen('Payment timed out');
+        }
+      } on Exception {
+        Navigator.pop(context);
+      }
+    });
   }
 
   @override

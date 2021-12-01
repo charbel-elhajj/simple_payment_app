@@ -38,14 +38,17 @@ class PaymentProvider extends ChangeNotifier {
     required Duration intervalDuration,
     required Duration timeoutDuration,
   }) async {
-    var i = 0;
+    var transactions = await getUserTransactions(userName);
+    final initialCount = transactions.length;
+
     final future = () async {
       final completer = Completer<bool?>();
-
       timer = Timer.periodic(intervalDuration, (_timer) async {
-        i++;
-
-        if (i > 600) {
+        print('[Fetching Transaction...]');
+        transactions = await getUserTransactions(userName);
+        var isRightAmount = transactions.length == 0? true : transactions.first.amount == amount;
+        final isInserted = transactions.length>initialCount && isRightAmount;
+        if (isInserted) {
           _timer.cancel();
           completer.complete(true);
         }
