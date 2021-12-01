@@ -21,10 +21,10 @@ class _IntegrityRoutingScreenState extends State<IntegrityRoutingScreen> {
 
   void _navigate() async {
     // sleep(Duration(seconds: 3));
-    Future.delayed(Duration.zero, () async{
+    Future.delayed(Duration.zero, () async {
       final provider = context.read<PaymentProvider>();
       final isValid = await provider.getIntegrity();
-      if(isValid){
+      if (isValid) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -37,12 +37,12 @@ class _IntegrityRoutingScreenState extends State<IntegrityRoutingScreen> {
             ),
           ),
         );
-      }
-      else{
+      } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => GenericErrorScreen(
+              textAlign: TextAlign.center,
               callToActionText: 'Okay',
               callback: () {
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName);
@@ -52,9 +52,6 @@ class _IntegrityRoutingScreenState extends State<IntegrityRoutingScreen> {
           ),
         );
       }
-
-
-
     });
   }
 

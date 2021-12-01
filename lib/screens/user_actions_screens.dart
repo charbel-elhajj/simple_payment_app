@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/screens/all_transactions_screen.dart';
 import 'package:simple_payment_app/screens/balance_screen.dart';
+import 'package:simple_payment_app/screens/payment_input_screen.dart';
+import 'package:simple_payment_app/screens/qr_code_scan_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
+
+import 'payment_loader_screen.dart';
 
 class UserActionsScreen extends StatefulWidget {
   static const routeName = '/user-actions';
@@ -55,15 +61,46 @@ class _UserActionsScreenState extends State<UserActionsScreen> {
             ),
             Spacer(),
             Button(
-              onPressHandler: () {
-                if (_formKey.currentState!.validate()) {}
+              onPressHandler: () async {
+                if (_formKey.currentState!.validate()) {
+                  //QRCodeScanScreen
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QRCodeScanScreen(),
+                    ),
+                  );
+                  if (result != null) {
+                    final personTo = json.decode(result)['person_to'] as String;
+                    final amount = json.decode(result)['amount'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentLoaderScreen(
+                          amount: amount,
+                          personFrom: _controller.text,
+                          personTo: personTo,
+                        ),
+                      ),
+                    );
+                  }
+                }
               },
               text: 'Pay',
             ),
             Spacer(),
             Button(
               onPressHandler: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentInputScreen(
+                        userName: _controller.text,
+                      ),
+                    ),
+                  );
+                }
               },
               text: 'Get paid',
             ),

@@ -24,9 +24,8 @@ class BalanceScreen extends StatelessWidget {
       return FutureBuilder<double>(
         future: provider.getUserBalance(userName),
         builder: (context, snapshot) {
-
           if (snapshot.hasData) {
-            final sign = snapshot.data!>=0?'+':'-';
+            final sign = snapshot.data! >= 0 ? '+' : '-';
             return Container(
               child: Center(
                 child: Text(
