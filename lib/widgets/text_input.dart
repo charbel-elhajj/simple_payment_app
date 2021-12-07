@@ -27,6 +27,7 @@ class TextInput extends StatelessWidget {
   final TextStyle? suffixStyle;
   final TextAlign textAlign;
   final bool enableInteractiveSelection;
+  final bool obscureText;
 
   TextInput({
     this.icon,
@@ -54,6 +55,7 @@ class TextInput extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.enableInteractiveSelection = false,
     this.onEditingComplete,
+    this.obscureText = false,
   });
 
   void _unfocusKeyboard(BuildContext context) {
@@ -100,6 +102,7 @@ class TextInput extends StatelessWidget {
       validator: validator,
       enableInteractiveSelection: enableInteractiveSelection,
       onEditingComplete: onEditingComplete,
+      obscureText: obscureText,
     );
   }
 }

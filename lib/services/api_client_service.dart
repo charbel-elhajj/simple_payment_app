@@ -43,10 +43,10 @@ class ApiClientService {
     double amount,
   ) async {
     final params = {
-        'person_from': personFrom,
-        'person_to': personTo,
-        'amount': amount,
-      };
+      'person_from': personFrom,
+      'person_to': personTo,
+      'amount': amount,
+    };
     final path = '${apiLink}transactions';
     final response = await _dio.post(
       path,
