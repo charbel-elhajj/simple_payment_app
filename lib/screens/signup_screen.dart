@@ -7,19 +7,20 @@ import 'package:simple_payment_app/screens/home_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final _userController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   var isEnabled = false;
   final _formKey = GlobalKey<FormState>();
   var _passwordVisible = false;
+  var _confirmPasswordVisible = false;
   var _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Text("Login"),
+      title: Text("Sign up"),
     );
   }
 
@@ -89,13 +90,45 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            TextInput(
+              inputType: TextInputType.visiblePassword,
+              placeholder: 'Confirm Password',
+              obscureText: !_confirmPasswordVisible,
+              controller: _confirmPasswordController,
+              onEditingComplete: _unfocusKeyboard,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please confirm your password';
+                }
+                if (value != _passwordController.text) return 'Confirmation is different than password';
+                return null;
+              },
+              icon: IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    _confirmPasswordVisible = !_confirmPasswordVisible;
+                  });
+                },
+              ),
+            ),
             Spacer(),
             if (_isLoading) CircularProgressIndicator(),
-            if (!_isLoading) ...[
+            if (!_isLoading)
               Button(
                 text: 'Login',
                 onPressHandler: () async {
-                  if (_passwordController.text.isEmpty || _userController.text.isEmpty) {
+                  if (_confirmPasswordController.text.isEmpty ||
+                      _passwordController.text.isEmpty ||
+                      _userController.text.isEmpty) {
                     await showDialog(
                       context: context,
                       builder: (context) {
@@ -113,24 +146,41 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     );
+                  } else if (_confirmPasswordController.text != _passwordController.text) {
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Oops'),
+                            content: Text('Password and confirm password are not the same'),
+                            actions: [
+                              Button(
+                                text: 'OK',
+                                onPressHandler: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        });
                   } else {
                     final provider = context.read<AuthProvider>();
                     setState(() {
                       _isLoading = true;
                     });
-                    final isSignedIn = await provider.signin(_userController.text, _passwordController.text);
+                    final isSignedUp = await provider.signup(_userController.text, _passwordController.text);
                     setState(() {
                       _isLoading = false;
                     });
-                    if (isSignedIn) {
+                    if (isSignedUp) {
                       Navigator.pushNamed(context, HomeScreen.routeName);
                     } else {
                       await showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text('Couldn\'t sign you in'),
-                            content: Text('Wrong email or password. Sorry...'),
+                            title: Text('Couldn\'t register you'),
+                            content: Text('Something went wrong'),
                             actions: [
                               Button(
                                 text: 'OK',
@@ -146,11 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Button(text: 'Sign up', onPressHandler: () {}),
-            ],
             SizedBox(
               height: 40,
             ),

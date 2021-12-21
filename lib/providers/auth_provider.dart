@@ -35,6 +35,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> signup(String email, String password) async {
     try {
+      keypair = RSAKeypair.fromRandom();
       person = await apiClientService.signup(email, password, keypair!.publicKey.toString());
       return true;
     } on Exception catch (e) {

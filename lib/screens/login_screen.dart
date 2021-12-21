@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/providers/auth_provider.dart';
 import 'package:simple_payment_app/screens/home_screen.dart';
+import 'package:simple_payment_app/screens/signup_screen.dart';
 import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
 
@@ -122,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       _isLoading = false;
                     });
                     if (isSignedIn) {
-                      Navigator.pushNamed(context, HomeScreen.routeName);
+                      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                     } else {
                       await showDialog(
                         context: context,
@@ -148,7 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 30,
               ),
-              Button(text: 'Sign up', onPressHandler: () {}),
+              Button(
+                text: 'Sign up',
+                onPressHandler: () {
+                  print('test');
+                  Navigator.pushNamed(context, SignupScreen.routeName);
+                },
+              ),
             ],
             SizedBox(
               height: 40,
