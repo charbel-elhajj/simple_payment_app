@@ -8,7 +8,7 @@ import 'package:simple_payment_app/widgets/button.dart';
 import 'package:simple_payment_app/widgets/text_input.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const routeName = '/login';
+  static const routeName = '/signup';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _userController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   var isEnabled = false;
   final _formKey = GlobalKey<FormState>();
   var _passwordVisible = false;

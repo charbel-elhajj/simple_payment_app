@@ -53,7 +53,7 @@ class TextInput extends StatelessWidget {
     this.counterText = '',
     this.suffixStyle,
     this.textAlign = TextAlign.start,
-    this.enableInteractiveSelection = false,
+    this.enableInteractiveSelection = true,
     this.onEditingComplete,
     this.obscureText = false,
   });
