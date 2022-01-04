@@ -14,9 +14,9 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> signin(String email, String password) async {
     try {
-      keypair = RSAKeypair.fromRandom();
+      // keypair = RSAKeypair.fromRandom();
       // String message = DateTime.now().millisecondsSinceEpoch.toRadixString(16);
-      // String signature = rsaKeypair.privateKey.createSignature(message);
+      // String signature = keypair!.privateKey.createSignature(message);
       // bool verified = rsaKeypair.publicKey.verifySignature(message, signature);
 
       // print(rsaKeypair.publicKey);

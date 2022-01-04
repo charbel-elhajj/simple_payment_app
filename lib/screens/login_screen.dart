@@ -1,3 +1,4 @@
+import 'package:crypton/crypton.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -23,6 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
   var _isLoading = false;
   @override
   Widget build(BuildContext context) {
+    final keypair = RSAKeypair.fromRandom();
+    String message = '10.0';
+    String signature = keypair.privateKey.createSignature(message);
+    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+    print(keypair.publicKey.toString());
+    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+    print(signature);
+    print(keypair.publicKey.verifySignature(message, signature));
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
