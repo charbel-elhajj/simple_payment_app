@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crypton/crypton.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_payment_app/models/transaction.dart';
 import 'package:simple_payment_app/services/api_client_service.dart';
@@ -79,9 +80,12 @@ class PaymentProvider extends ChangeNotifier {
     String personFrom,
     String personTo,
     double amount,
+    RSAKeypair keypair,
   ) async {
     try {
-      final transaction = await apiClientService.createTransaction(personFrom, personTo, amount);
+      // ignore: deprecated_member_use
+      final signature = keypair.privateKey.createSignature('$amount');
+      final transaction = await apiClientService.createTransaction(personFrom, personTo, amount, signature);
       return transaction;
     } on Exception catch (e) {
       print(e);

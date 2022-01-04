@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_payment_app/providers/auth_provider.dart';
 import 'package:simple_payment_app/providers/payment_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,25 +33,9 @@ class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
   void _navigate() async {
     Future.delayed(Duration(seconds: 1), () async {
       final provider = context.read<PaymentProvider>();
-      final transaction = await provider.createTransaction(
-        widget.personFrom,
-        widget.personTo,
-        widget.amount,
-      );
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print(transaction?.time);
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      final authProvider = context.read<AuthProvider>();
+      final transaction =
+          await provider.createTransaction(widget.personFrom, widget.personTo, widget.amount, authProvider.keypair!);
       if (transaction != null) {
         Navigator.pushReplacement(
           context,
@@ -60,7 +45,7 @@ class _PaymentLoaderScreenState extends State<PaymentLoaderScreen> {
               callback: () {
                 Navigator.pop(context);
               },
-              mainText: '${widget.amount} has been sent to ${widget.personTo}',
+              mainText: '${widget.amount} has been sent',
             ),
           ),
         );

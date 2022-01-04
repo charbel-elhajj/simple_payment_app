@@ -42,11 +42,13 @@ class ApiClientService {
     String personFrom,
     String personTo,
     double amount,
+    String signature,
   ) async {
     final params = {
       'person_from': personFrom,
       'person_to': personTo,
       'amount': amount,
+      'signature': signature,
     };
     final path = '${apiLink}transactions';
     final response = await _dio.post(

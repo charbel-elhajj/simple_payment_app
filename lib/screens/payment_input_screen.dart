@@ -7,9 +7,14 @@ import 'package:simple_payment_app/widgets/text_input.dart' as txt;
 
 class PaymentInputScreen extends StatefulWidget {
   static const routeName = '/payment-input';
+  final String publicKey;
   final String userName;
 
-  const PaymentInputScreen({Key? key, required this.userName}) : super(key: key);
+  const PaymentInputScreen({
+    Key? key,
+    required this.publicKey,
+    required this.userName,
+  }) : super(key: key);
   @override
   _PaymentInputScreenState createState() => _PaymentInputScreenState();
 }
@@ -81,6 +86,7 @@ class _PaymentInputScreenState extends State<PaymentInputScreen> {
                         return QrCodeScreen(
                           amount: double.parse(_controller.text),
                           userName: widget.userName,
+                          publicKey: widget.publicKey,
                         );
                       },
                     ),
