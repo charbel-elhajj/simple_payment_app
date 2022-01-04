@@ -12,6 +12,7 @@ class TextInput extends StatelessWidget {
   final void Function(String?)? onSaveHandler;
   final void Function()? onIconTapHandler;
   final void Function()? onTapHandler;
+  final void Function()? onEditingComplete;
   final void Function(String)? onFieldSubmitted;
   final TextEditingController? controller;
   final TextCapitalization? textCapitalization;
@@ -26,6 +27,7 @@ class TextInput extends StatelessWidget {
   final TextStyle? suffixStyle;
   final TextAlign textAlign;
   final bool enableInteractiveSelection;
+  final bool obscureText;
 
   TextInput({
     this.icon,
@@ -51,7 +53,9 @@ class TextInput extends StatelessWidget {
     this.counterText = '',
     this.suffixStyle,
     this.textAlign = TextAlign.start,
-    this.enableInteractiveSelection = false,
+    this.enableInteractiveSelection = true,
+    this.onEditingComplete,
+    this.obscureText = false,
   });
 
   void _unfocusKeyboard(BuildContext context) {
@@ -97,6 +101,8 @@ class TextInput extends StatelessWidget {
       maxLength: maxLength,
       validator: validator,
       enableInteractiveSelection: enableInteractiveSelection,
+      onEditingComplete: onEditingComplete,
+      obscureText: obscureText,
     );
   }
 }
