@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:simple_payment_app/config/constants.dart';
+import 'package:simple_payment_app/models/person.dart';
 import 'package:simple_payment_app/models/transaction.dart';
 
 class ApiClientService {
@@ -43,10 +44,10 @@ class ApiClientService {
     double amount,
   ) async {
     final params = {
-        'person_from': personFrom,
-        'person_to': personTo,
-        'amount': amount,
-      };
+      'person_from': personFrom,
+      'person_to': personTo,
+      'amount': amount,
+    };
     final path = '${apiLink}transactions';
     final response = await _dio.post(
       path,
@@ -56,5 +57,41 @@ class ApiClientService {
     final data = response.data as Map<String, dynamic>;
     final transaction = Transaction.fromJson(data);
     return transaction;
+  }
+
+  Future<Person> signin(String email, String password, String? publicKey) async {
+    print('data');
+    final params = {
+      'email': email,
+      'password': password,
+      if (publicKey != null) 'public_key': publicKey,
+    };
+    final path = '${apiLink}persons/signin';
+    final response = await _dio.post(
+      path,
+      data: FormData.fromMap(params),
+    );
+    final data = response.data as Map<String, dynamic>;
+    print(data);
+    final person = Person.fromJson(data);
+    return person;
+  }
+
+  Future<Person> signup(String email, String password, String publicKey) async {
+    print('data');
+    final params = {
+      'email': email,
+      'password': password,
+      'public_key': publicKey,
+    };
+    final path = '${apiLink}persons/signup';
+    final response = await _dio.post(
+      path,
+      data: FormData.fromMap(params),
+    );
+    final data = response.data as Map<String, dynamic>;
+    print(data);
+    final person = Person.fromJson(data);
+    return person;
   }
 }
