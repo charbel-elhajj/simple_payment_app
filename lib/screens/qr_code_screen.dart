@@ -10,9 +10,15 @@ import 'generic_confirmation_screen.dart';
 import 'generic_error_screen.dart';
 
 class QrCodeScreen extends StatefulWidget {
-  const QrCodeScreen({Key? key, required this.amount, required this.userName}) : super(key: key);
+  const QrCodeScreen({
+    Key? key,
+    required this.amount,
+    required this.userName,
+    required this.publicKey,
+  }) : super(key: key);
   final double amount;
   final String userName;
+  final String publicKey;
   @override
   _QrCodeScreenState createState() => _QrCodeScreenState();
 }
@@ -38,7 +44,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         if (isConfirmed != null) {
           isConfirmed ? _redirectToConfirmationScreen() : _redirectToErrorScreen('Payment timed out');
         }
-      } on Exception {
+      } on Exception catch (e) {
+        print(e);
         Navigator.pop(context);
       }
     });
@@ -118,7 +125,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
           Spacer(),
           QrImage(
             data: json.encode({
-              'person_to': widget.userName,
+              'person_to': widget.publicKey,
               'amount': widget.amount,
             }),
             version: QrVersions.auto,
